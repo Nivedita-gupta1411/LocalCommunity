@@ -102,7 +102,27 @@ Designed as an end-to-end full-stack portfolio application demonstrating strong 
 - **Recently Viewed**: Automatically tracks up to 10 recently opened products without redundant duplicates.
 - **Rule-Based Recommendations**: Recommends active campus items based on top categories from user favorites and view history.
 
-### 7. Administrative Oversight (RBAC)
+### 7. Smart Price Suggestion (Market Estimation)
+- Intelligent, real-time pricing guidance during listing creation and editing.
+- Uses statistical median estimation with 10% two-tailed outlier trimming across comparable active/sold listings.
+- Hierarchical matching: Title keywords + condition → Category + condition → General category.
+- Strict minimum sample size constraint (n ≥ 3) prevents skewed advice when market data is sparse.
+- Edit-mode exclusion (`excludeId`) prevents the listing's own current price from skewing the market recommendation.
+- One-click "Apply Suggested Price" interactive button in the listing UI.
+
+### 8. Seller Trust Score & Community Standing
+- Transparent, deterministic 0–100 score computed strictly from verified database records.
+- **Scoring Formula**:
+  - Baseline Standing: 70 points
+  - Completed Sales Bonus: +3 points per sold listing (capped at +15 points)
+  - Offer Reliability: Up to +10 points based on response rate to buyer offers (neutral +5 for new sellers)
+  - Campus Membership Age: +1 point per 30 days active on campus (capped at +5 points)
+  - Verified Violations Penalty: -20 points per resolved report (up to -40 points penalty)
+  - Account Suspension: Forces score to 0
+- Color-coded tiers: Excellent (90–100), Good (75–89), Fair (50–74), Caution (<50).
+- Interactive transparency popover breakdown explaining every scoring factor and awarding earned badges (*Campus Verified*, *Quick Responder*, *Active Seller*, *Top Seller*, *Community Veteran*).
+
+### 9. Administrative Oversight (RBAC)
 - **Dashboard**: Real-time aggregated statistics (total users, active listings, pending reports, category distributions, 7-day velocity).
 - **User Moderation**: View all registered accounts and toggle account status (`active` / `suspended`).
 - **Product Moderation**: View and delete inappropriate or duplicate listings.
@@ -133,6 +153,7 @@ Designed as an end-to-end full-stack portfolio application demonstrating strong 
 
 ### Products (`/api/products`)
 - `GET /` — Browse products (supports `search`, `category`, `listingType`, `condition`, `minPrice`, `maxPrice`, `sort`, `page`, `limit`)
+- `GET /price-suggestion` — Smart price recommendation (parameters: `category`, `condition`, `title`, `listingType`, `excludeId`)
 - `POST /` — Create listing (multipart/form-data, max 5 images)
 - `GET /:id` — Get product details and track user view
 - `PUT /:id` — Update listing (seller only)
@@ -164,6 +185,7 @@ Designed as an end-to-end full-stack portfolio application demonstrating strong 
 - `GET /me/recently-viewed` — Get user's 10 most recently viewed items
 - `GET /me/recommendations` — Get rule-based personalized product suggestions
 - `GET /profile/:id` — Public profile details
+- `GET /:id/trust-score` — Deterministic seller trust score and metric breakdown
 - `PUT /profile` — Update current user profile
 
 ### Admin (`/api/admin`)
@@ -241,7 +263,7 @@ cd backend
 npm test
 ```
 
-### Test Coverage Highlights
+### Test Coverage Highlights (56 Passing Tests Across 6 Suites)
 - **Auth (10 tests)**: Valid registration, duplicate email rejection, invalid email check, missing fields, valid login, wrong password rejection, protected routes without token, protected routes with token.
 - **Products (10 tests)**: Authenticated creation with image upload, unauthenticated rejection, pagination limits, product by ID, 404 for missing items, seller updates, ownership guards, seller deletion, mark as sold.
 - **Search & Filter (9 tests)**: Multi-field search, category filtering, condition filtering, price range boundaries, sequential sorting (newest, price ascending, price descending), pagination counts.
@@ -252,6 +274,17 @@ npm test
   - Notifications (creation on real events, mark as read, mark all read, unauthorized access guards).
   - Recently viewed (tracking viewed items, duplicate prevention).
   - Rule-based recommendations (active items returned based on category affinity).
+- **Smart Pricing & Trust Score Suite (10 tests)**:
+  - Insufficient data handling (sample size < 3 graceful response).
+  - Multi-candidate price estimation (median, min, and max ranges).
+  - Outlier elimination (trimming top & bottom 10% on large sample sizes).
+  - Edit mode exclusion (`excludeId` to avoid self-bias).
+  - Deterministic Trust Score baseline (70 base + 5 neutral reliability = 75).
+  - Completed sales bonus (+3 per sold listing).
+  - Offer responsiveness score calculation (100% response -> +10 reliability bonus).
+  - Penalty for verified resolved violation reports (-20 per report).
+  - Suspended account score zeroing (score = 0, isSuspended = true).
+  - Public trust score endpoint routing compatibility.
 
 ---
 

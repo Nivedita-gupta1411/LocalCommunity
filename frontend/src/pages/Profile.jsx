@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import api from '../services/api';
 import { User, Mail, Phone, MapPin, Building, Calendar, Edit3, Save, X, Package, CheckCircle } from 'lucide-react';
+import TrustScoreBadge from '../components/TrustScoreBadge';
 
 const Profile = () => {
   const { user, setUser } = useContext(AuthContext);
@@ -129,7 +130,7 @@ const Profile = () => {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-2 divide-x divide-gray-100 border-b border-gray-100">
+        <div className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-gray-100 border-b border-gray-100 bg-gray-50/50">
           <div className="p-5 text-center">
             <p className="text-2xl font-bold text-emerald-600">{stats.active}</p>
             <p className="text-sm text-gray-500">Active Listings</p>
@@ -137,6 +138,14 @@ const Profile = () => {
           <div className="p-5 text-center">
             <p className="text-2xl font-bold text-emerald-600">{stats.sold}</p>
             <p className="text-sm text-gray-500">Items Sold</p>
+          </div>
+          <div className="p-5 text-center flex flex-col items-center justify-center">
+            {profile?._id && (
+              <div className="my-auto">
+                <TrustScoreBadge sellerId={profile._id} />
+                <p className="text-xs text-gray-400 mt-1">Trust Standing</p>
+              </div>
+            )}
           </div>
         </div>
 

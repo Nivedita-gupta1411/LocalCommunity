@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
 import { AuthContext } from '../context/AuthContext';
 import { Upload, X } from 'lucide-react';
+import PriceSuggestionBox from '../components/PriceSuggestionBox';
 
 const CreateListing = () => {
   const [formData, setFormData] = useState({
@@ -114,6 +115,14 @@ const CreateListing = () => {
             />
           </div>
         </div>
+
+        <PriceSuggestionBox
+          category={formData.category}
+          condition={formData.condition}
+          title={formData.title}
+          listingType={formData.listingType}
+          onApplyPrice={(suggested) => setFormData(prev => ({ ...prev, price: suggested }))}
+        />
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>

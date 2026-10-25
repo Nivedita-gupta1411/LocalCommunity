@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const trustScoreService = require('../services/trustScoreService');
 
 // @desc    Add product to favorites
 // @route   POST /api/products/:id/favorite
@@ -170,6 +171,24 @@ exports.getRecommendations = async (req, res, next) => {
       success: true,
       topCategories,
       data: recommendedProducts
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+// @desc    Get seller trust score
+// @route   GET /api/users/:id/trust-score
+// @access  Public
+exports.getSellerTrustScore = async (req, res, next) => {
+  try {
+    const scoreData = await trustScoreService.calculateTrustScore(req.params.id);
+    if (!scoreData) {
+      return res.status(404).json({ success: false, message: 'User not found' });
+    }
+    res.status(200).json({
+      success: true,
+      data: scoreData
     });
   } catch (error) {
     next(error);

@@ -5,7 +5,8 @@ const {
   createProduct,
   updateProduct,
   deleteProduct,
-  markAsSold
+  markAsSold,
+  getPriceSuggestion
 } = require('../controllers/productController');
 
 const { protect } = require('../middleware/auth');
@@ -18,6 +19,8 @@ router
   .route('/')
   .get(getProducts)
   .post(protect, upload.array('images', 5), createProduct);
+
+router.get('/price-suggestion', getPriceSuggestion);
 
 router
   .route('/:id')

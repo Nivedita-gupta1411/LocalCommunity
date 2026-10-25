@@ -3,6 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import api from '../services/api';
 import { AuthContext } from '../context/AuthContext';
 import { MapPin, Clock, User, Heart, Flag, Edit, Trash2, MessageSquare, CheckCircle, Eye, X, DollarSign, Tag } from 'lucide-react';
+import TrustScoreBadge from '../components/TrustScoreBadge';
 
 const badgeColors = {
   Sell: 'bg-emerald-50 text-emerald-700 border-emerald-200',
@@ -224,15 +225,22 @@ const ProductDetails = () => {
 
             {/* Seller Info */}
             <div className="border-t border-gray-100 pt-6 mb-6">
-              <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">Seller</h3>
-              <div className="flex items-center">
-                <div className="h-12 w-12 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 font-bold text-lg mr-4">
-                  {product.seller.name?.charAt(0)?.toUpperCase()}
+              <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">Seller & Community Trust</h3>
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div className="flex items-center">
+                  <div className="h-12 w-12 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 font-bold text-lg mr-4 flex-shrink-0">
+                    {product.seller.name?.charAt(0)?.toUpperCase()}
+                  </div>
+                  <div>
+                    <p className="font-bold text-gray-900">{product.seller.name}</p>
+                    <p className="text-sm text-gray-500">{product.seller.college}</p>
+                  </div>
                 </div>
-                <div>
-                  <p className="font-bold text-gray-900">{product.seller.name}</p>
-                  <p className="text-sm text-gray-500">{product.seller.college}</p>
-                </div>
+                {product.seller?._id && (
+                  <div>
+                    <TrustScoreBadge sellerId={product.seller._id} />
+                  </div>
+                )}
               </div>
             </div>
 

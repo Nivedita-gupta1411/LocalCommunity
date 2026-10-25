@@ -1,6 +1,7 @@
 const Product = require('../models/Product');
 const fs = require('fs');
 const path = require('path');
+const priceSuggestionService = require('../services/priceSuggestionService');
 
 // @desc    Get all products (with pagination, search, filter)
 // @route   GET /api/products
@@ -280,6 +281,29 @@ exports.markAsSold = async (req, res, next) => {
     res.status(200).json({
       success: true,
       data: product
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+// @desc    Get smart price suggestion based on historical comparable listings
+// @route   GET /api/products/price-suggestion
+// @access  Public
+exports.getPriceSuggestion = async (req, res, next) => {
+  try {
+    const { category, condition, title, listingType, excludeId } = req.query;
+    const suggestion = await priceSuggestionService.getSuggestedPrice({
+      category,
+      condition,
+      title,
+      listingType,
+      excludeId
+    });
+
+    res.status(200).json({
+      success: true,
+      data: suggestion
     });
   } catch (error) {
     next(error);

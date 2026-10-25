@@ -3,6 +3,7 @@ import { useNavigate, useParams, Link } from 'react-router-dom';
 import api from '../services/api';
 import { AuthContext } from '../context/AuthContext';
 import { ArrowLeft, CheckCircle } from 'lucide-react';
+import PriceSuggestionBox from '../components/PriceSuggestionBox';
 
 const EditListing = () => {
   const { id } = useParams();
@@ -147,6 +148,15 @@ const EditListing = () => {
             />
           </div>
         </div>
+
+        <PriceSuggestionBox
+          category={formData.category}
+          condition={formData.condition}
+          title={formData.title}
+          listingType={formData.listingType}
+          excludeId={id}
+          onApplyPrice={(suggested) => setFormData(prev => ({ ...prev, price: suggested }))}
+        />
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
