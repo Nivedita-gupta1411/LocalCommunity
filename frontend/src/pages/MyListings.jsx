@@ -92,7 +92,7 @@ const MyListings = () => {
             <div key={product._id} className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
               <div className="relative h-48 bg-gray-100">
                 <img
-                  src={product.images?.[0] ? `http://localhost:5000${product.images[0]}` : '/placeholder.png'}
+                  src={product.images?.[0] ? `https://localcommunity-1.onrender.com${product.images[0]}` : '/placeholder.png'}
                   alt={product.title}
                   className="w-full h-full object-cover"
                 />

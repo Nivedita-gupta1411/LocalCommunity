@@ -152,7 +152,7 @@ const Offers = () => {
               <div className="flex items-start space-x-4">
                 <div className="h-16 w-16 rounded-xl bg-gray-100 overflow-hidden flex-shrink-0">
                   {offer.product?.images?.[0] ? (
-                    <img src={`http://localhost:5000${offer.product.images[0]}`} alt="" className="h-full w-full object-cover" />
+                    <img src={`https://localcommunity-1.onrender.com${offer.product.images[0]}`} alt="" className="h-full w-full object-cover" />
                   ) : (
                     <div className="h-full w-full flex items-center justify-center text-gray-300">
                       <DollarSign className="h-6 w-6" />

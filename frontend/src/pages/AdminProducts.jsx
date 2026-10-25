@@ -94,7 +94,7 @@ const AdminProducts = () => {
                     <div className="flex items-center">
                       <div className="h-10 w-10 rounded-lg bg-gray-100 overflow-hidden mr-3 flex-shrink-0">
                         {p.images?.[0] ? (
-                          <img src={`http://localhost:5000${p.images[0]}`} alt="" className="h-full w-full object-cover" />
+                          <img src={`https://localcommunity-1.onrender.com${p.images[0]}`} alt="" className="h-full w-full object-cover" />
                         ) : (
                           <div className="h-full w-full flex items-center justify-center"><Package className="h-4 w-4 text-gray-400" /></div>
                         )}

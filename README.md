@@ -5,6 +5,13 @@
 
 ---
 
+## 🚀 Live Demo
+
+- **Frontend:** https://local-community-coral.vercel.app/
+- **Backend API:** https://localcommunity-1.onrender.com
+
+---
+
 ## 📌 Project Overview
 
 **LocalCommunity** addresses the friction students face when buying and selling course materials, electronics, cycles, and hostel essentials. Unlike generic e-commerce sites, LocalCommunity is designed around verified local trust circles, structured negotiation offers, multi-type listings (Sell, Rent, Exchange, Donate), contextual buyer-seller chat, persistent notifications, and automated rule-based recommendations.

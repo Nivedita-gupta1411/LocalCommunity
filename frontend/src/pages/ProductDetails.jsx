@@ -164,7 +164,7 @@ const ProductDetails = () => {
           <div className="md:w-1/2 p-6">
             <div className="aspect-[4/3] bg-gray-100 rounded-xl overflow-hidden mb-4 relative">
               <img
-                src={product.images?.[selectedImage] ? `http://localhost:5000${product.images[selectedImage]}` : '/placeholder.png'}
+                src={product.images?.[selectedImage] ? `https://localcommunity-1.onrender.com${product.images[selectedImage]}` : '/placeholder.png'}
                 alt={product.title}
                 className="object-cover w-full h-full"
               />
@@ -177,7 +177,7 @@ const ProductDetails = () => {
                 {product.images.map((img, index) => (
                   <button key={index} onClick={() => setSelectedImage(index)}
                     className={`h-16 w-16 rounded-lg overflow-hidden border-2 transition-colors flex-shrink-0 ${selectedImage === index ? 'border-emerald-500' : 'border-gray-200 hover:border-gray-300'}`}>
-                    <img src={`http://localhost:5000${img}`} alt="" className="h-full w-full object-cover" />
+                    <img src={`https://localcommunity-1.onrender.com${img}`} alt="" className="h-full w-full object-cover" />
                   </button>
                 ))}
               </div>

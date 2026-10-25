@@ -37,7 +37,7 @@ const ProductCard = ({ product, onFavoriteToggle }) => {
       <Link to={`/product/${product._id}`} className="block">
         <div className="relative h-48 bg-gray-100 overflow-hidden">
           <img
-            src={product.images && product.images[0] ? `http://localhost:5000${product.images[0]}` : '/placeholder.png'}
+            src={product.images && product.images[0] ? `https://localcommunity-1.onrender.com${product.images[0]}` : '/placeholder.png'}
             alt={product.title}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
           />

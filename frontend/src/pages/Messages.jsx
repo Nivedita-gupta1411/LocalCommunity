@@ -98,7 +98,7 @@ const Messages = () => {
                 {/* Product thumbnail */}
                 <div className="h-14 w-14 rounded-lg bg-gray-100 overflow-hidden flex-shrink-0">
                   {conv.product.images?.[0] ? (
-                    <img src={`http://localhost:5000${conv.product.images[0]}`} alt="" className="h-full w-full object-cover" />
+                    <img src={`https://localcommunity-1.onrender.com${conv.product.images[0]}`} alt="" className="h-full w-full object-cover" />
                   ) : (
                     <div className="h-full w-full flex items-center justify-center">
                       <MessageSquare className="h-6 w-6 text-gray-400" />
